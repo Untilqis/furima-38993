@@ -9,8 +9,8 @@
 | encrypted_password    | string  | null: false               |
 | last_name             | string  | null: false               |
 | first_name            | string  | null: false               |
-| last_kana_name        | string  | null: false               |
-| first_kana_name       | string  | null: false               |
+| last_name_kana        | string  | null: false               |
+| first_name_kana       | string  | null: false               |
 | date_of_birth         | date    | null: false               |
 
 ### Association
