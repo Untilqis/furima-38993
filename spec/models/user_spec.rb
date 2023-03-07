@@ -4,7 +4,7 @@ RSpec.describe User, type: :model do
   before do
     @user = FactoryBot.build(:user)
   end
-  
+
   describe 'ユーザー新規登録' do
     context '新規登録できる場合' do
       it 'nickname、email、password、password_confirmation、last_name、first_name、last_name_kana、first_name_kana、date_of_birthが存在すれば登録できる' do
@@ -16,13 +16,13 @@ RSpec.describe User, type: :model do
       it 'nicknameが空では登録できない' do
         @user.nickname = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include ("Nickname can't be blank")
+        expect(@user.errors.full_messages).to include("Nickname can't be blank")
       end
 
       it 'emailが空では登録できない' do
         @user.email = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include ("Email can't be blank")
+        expect(@user.errors.full_messages).to include("Email can't be blank")
       end
 
       it '重複したemailが存在する場合は登録できない' do
@@ -41,7 +41,7 @@ RSpec.describe User, type: :model do
       it 'passwordが空では登録できない' do
         @user.password = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include ("Password can't be blank")
+        expect(@user.errors.full_messages).to include("Password can't be blank")
       end
 
       it 'passwordが5文字以下では登録できない' do
@@ -62,8 +62,8 @@ RSpec.describe User, type: :model do
         @user.password = 'a123456'
         @user.password_confirmation = ''
         @user.valid?
-        expect(@user.errors.full_messages).to include ("Password confirmation doesn't match Password")
-      end 
+        expect(@user.errors.full_messages).to include("Password confirmation doesn't match Password")
+      end
 
       it 'passwordとpassword_confirmationが不一致では登録できない' do
         @user.password = 'a123456'
@@ -101,7 +101,7 @@ RSpec.describe User, type: :model do
         @user.valid?
         expect(@user.errors.full_messages).to include("Last name kana can't be blank")
       end
-      
+
       it 'last_name_kanaが全角のカタカナ以外では登録できない' do
         @user.last_name_kana = '「１番です」'
         @user.valid?
