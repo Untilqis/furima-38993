@@ -1,30 +1,33 @@
 class Item < ApplicationRecord
+  extend ActiveHash::Associations::ActiveRecordExtensions
+
+  #テーブルとのアソシエーション
   belongs_to :user
+
+  #アクティブハッシュとのアソシエーション
+  belongs_to :category
+  belongs_to :condition
+  belongs_to :shipping_cost
+  belongs_to :prefecture
+  belongs_to :shipping_date
+
+  #active_storageとのアソシエーション
   has_one_attached :image
 
-  validates :name,             presence: true
-  validates :description,      presence: true
-  validates :category_id,      presence: true
-  validates :condition_id,     presence: true
-  validates :shipping_cost_id, presence: true
-  validates :prefecture_id,    presence: true
-  validates :shipping_date_id, presence: true
-  validates :price,            presence: true
-  validates :user,             presence: true
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :category
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :condition
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :shipping_cost
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :prefecture
-
-  extend ActiveHash::Associations::ActiveRecordExtensions
-  belongs_to :shipping_date
+  #テーブルへのバリデーション
+  with_options presence: true do
+    
+    validates :image
+    validates :name
+    validates :description
+    validates :category_id
+    validates :condition_id
+    validates :shipping_cost_id
+    validates :prefecture_id
+    validates :shipping_date_id
+    validates :price, numericality: { allow_blank: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9999999 }
+    validates :user
+  
+  end
 
 end

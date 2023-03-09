@@ -4,22 +4,21 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
   
+  #テーブルとのアソシエーション
   has_many :items
 
-  validates :nickname, presence: true
+  #バリデーション
+  with_options presence: true do
+    
+    validates :nickname
+    validates :last_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ , allow_blank: true }
+    validates :first_name, format: { with: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ , allow_blank: true }
+    validates :last_name_kana, format: { with: /\A[ァ-ヶー]+\z/ , allow_blank: true }
+    validates :first_name_kana, format: { with: /\A[ァ-ヶー]+\z/ , allow_blank: true }
+    validates :date_of_birth
+    
+    PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+    validates_format_of :password, with: PASSWORD_REGEX
 
-  with_options presence: true, format: /\A[ぁ-んァ-ヶ一-龥々ー]+\z/ do
-    validates :last_name
-    validates :first_name
   end
-
-  with_options presence: true, format: /\A[ァ-ヶー]+\z/ do
-    validates :last_name_kana
-    validates :first_name_kana
-  end
-
-  validates :date_of_birth, presence: true
-
-  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
-  validates_format_of :password, with: PASSWORD_REGEX
 end
