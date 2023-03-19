@@ -38,7 +38,7 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include('Postal code is invalid')
       end
 
-      it 'prefecture_idが選択されていない時には登録できない' do
+      it 'prefecture_idが選択されていない時、または[---]を選択した際には登録できない' do
         @purchase_address.prefecture_id = ''
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
@@ -64,6 +64,12 @@ RSpec.describe PurchaseAddress, type: :model do
 
       it 'phone_numberが10文字以下の場合は登録できない' do
         @purchase_address.phone_number = '0901234'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
+      end
+
+      it 'phone_numberが12文字以上の場合は登録できない' do
+        @purchase_address.phone_number = '0901234567899'
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
       end
