@@ -29,13 +29,13 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'postal_codeに-が入っていない場合には登録できない' do
         @purchase_address.postal_code = '11111111'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Postal code is invalid")
+        expect(@purchase_address.errors.full_messages).to include('Postal code is invalid')
       end
 
       it 'postal_codeが半角数字ではない場合には登録できない' do
         @purchase_address.postal_code = '１２３-４５６７'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Postal code is invalid")
+        expect(@purchase_address.errors.full_messages).to include('Postal code is invalid')
       end
 
       it 'prefecture_idが選択されていない時には登録できない' do
@@ -65,16 +65,16 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'phone_numberが10文字以下の場合は登録できない' do
         @purchase_address.phone_number = '0901234'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
       end
 
       it 'phone_numberが半角数字以外では登録できない' do
         @purchase_address.phone_number = '０９０１２３４５６７８'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone number is invalid")
+        expect(@purchase_address.errors.full_messages).to include('Phone number is invalid')
       end
 
-      it "tokenが空では登録できないこと" do
+      it 'tokenが空では登録できないこと' do
         @purchase_address.token = nil
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Token can't be blank")
