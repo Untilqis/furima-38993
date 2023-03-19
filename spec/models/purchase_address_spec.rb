@@ -38,8 +38,14 @@ RSpec.describe PurchaseAddress, type: :model do
         expect(@purchase_address.errors.full_messages).to include('Postal code is invalid')
       end
 
-      it 'prefecture_idが選択されていない時、または[---]を選択した際には登録できない' do
+      it 'prefecture_idが空の時には登録できない' do
         @purchase_address.prefecture_id = ''
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
+      end
+
+      it 'prefecture_idが---の時には登録できない' do
+        @purchase_address.prefecture_id = 0
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("Prefecture can't be blank")
       end
