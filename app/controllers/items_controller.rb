@@ -23,7 +23,7 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    return if current_user.id == @item.user_id
+    return if current_user.id == @item.user_id && @item.purchase.present?
 
     redirect_to action: :index
   end
@@ -51,4 +51,5 @@ class ItemsController < ApplicationController
   def set_item
     @item = Item.find(params[:id])
   end
+
 end
