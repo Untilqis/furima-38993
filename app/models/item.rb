@@ -20,13 +20,22 @@ class Item < ApplicationRecord
     validates :image
     validates :name
     validates :description
-    validates :category_id, numericality: { other_than: 0, message: "can't be blank" }
-    validates :condition_id, numericality: { other_than: 0, message: "can't be blank" }
-    validates :shipping_cost_id, numericality: { other_than: 0, message: "can't be blank" }
-    validates :prefecture_id, numericality: { other_than: 0, message: "can't be blank" }
-    validates :shipping_date_id, numericality: { other_than: 0, message: "can't be blank" }
+    validates :category_id
+    validates :condition_id
+    validates :shipping_cost_id
+    validates :prefecture_id
+    validates :shipping_date_id
     validates :price,
               numericality: { allow_blank: true, greater_than_or_equal_to: 300,
                               less_than_or_equal_to: 9_999_999, only_integer: true }
+  end
+
+  # ActiveHashの[---]が選択された際のバリデーション
+  with_options numericality: { other_than: 0, message: "を選択してください" } do
+    validates :category_id
+    validates :condition_id
+    validates :shipping_cost_id
+    validates :prefecture_id
+    validates :shipping_date_id
   end
 end
